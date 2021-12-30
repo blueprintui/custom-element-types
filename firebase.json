@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "site": "custom-element-types",
+    "public": "site",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [ ],
+    "redirects": [ ]
+  }
+}
