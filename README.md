@@ -1,4 +1,6 @@
-# Custom Element Types
+# custom-element-types
+
+[![npm version](https://badge.fury.io/js/custom-element-types.svg)](https://badge.fury.io/js/custom-element-types) ![CI Build](https://github.com/coryrylan/custom-element-types/actions/workflows/build.yml/badge.svg)
 
 A generator to create TypeScript type definitions for TypeScript applications using Custom Elements.
 Currently supports React 18.x expermental and Angular.
