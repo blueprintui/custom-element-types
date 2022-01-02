@@ -29,3 +29,7 @@ custom-element-types --write --type react --entrypoint @cds/core
 | custom-elements   | optional custom path to `custom-elements.json` file                           |
 | write             | write to file, optionally provide a output directory path                     |
 | entrypoint        | package name for base entrypoint import path, else defaults to relative path |
+
+## Examples
+- React: https://stackblitz.com/edit/http-server-noh4jj 
+- Angular: https://stackblitz.com/edit/node-1tthxz
