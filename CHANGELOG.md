@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.0
+- add Preact type support
+
 ## 0.0.0
 
 - intial beta release

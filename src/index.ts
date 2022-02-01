@@ -5,6 +5,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { generate as generateAngular } from './angular.js';
 import { generate as generateReact } from './react.js';
+import { generate as generatePreact } from './preact.js';
 import { generate as generateTypeScript } from './typescript.js';
 
 const { ensureFileSync, writeFileSync, readJsonSync } = fs;
@@ -15,6 +16,7 @@ const manifestPath = argv.customElements ? argv.customElements : './custom-eleme
 const generator = {
   angular: generateAngular,
   react: generateReact,
+  preact: generatePreact,
   typescript: generateTypeScript
 }
 
