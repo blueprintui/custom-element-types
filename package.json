@@ -1,6 +1,6 @@
 {
   "name": "custom-element-types",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A generator to create TypeScript type definitions for React applications using Custom Elements.",
   "main": "./index.js",
   "module": "./index.js",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "cd site && lite-server",
-    "ci": "npm run clean && npm run build && npm run build:react && npm run build:preact && npm run build:angular && npm run build:typescript",
+    "ci": "npm run clean && npm run build && npm run build:react && npm run build:preact && npm run build:angular && npm run build:typescript && npm run build:blazor",
     "clean": "del ./dist",
     "build": "tsc --project ./tsconfig.lib.json && cpy ./package.json dist/lib/ && cpy ./README.md dist/lib/",
     "build:watch": "tsc --watch --project ./tsconfig.lib.json",
@@ -19,6 +19,7 @@
     "build:preact": "node ./dist/lib/index.js --type preact --custom-elements ./custom-elements.json --write ./dist/preact --entrypoint @cds/core",
     "build:angular": "node ./dist/lib/index.js --type angular --custom-elements ./custom-elements.json --write ./dist/angular --entrypoint @cds/core",
     "build:typescript": "node ./dist/lib/index.js --type typescript --custom-elements ./custom-elements.json --write ./dist/typescript --entrypoint @cds/core",
+    "build:blazor": "node ./dist/lib/index.js --type blazor --custom-elements ./custom-elements.json --write ./dist/blazor --entrypoint @cds/core",
     "deploy": "firebase deploy --only hosting:custom-element-types"
   },
   "repository": {

@@ -1,10 +1,13 @@
-import { getElementImport, getCustomElementModules, getCustomElementDeclrations } from './utils.js';
+import { getElementImport, getCustomElementModules, getCustomElementDeclrations, generatedMessage } from './utils.js';
 
 export function generate(config: { customElementsManifest: any, entrypoint: string }) {
   const customElementModules = getCustomElementModules(config.customElementsManifest);
 
   const src = `
-// types.d.ts
+/*
+ * types.d.ts
+ * ${generatedMessage}
+ */
 ${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => getElementImport(e, config.entrypoint, m.path))).join('\n')}
 
 type CustomEvents<K extends string> = { [key in K] : (event: CustomEvent) => void };

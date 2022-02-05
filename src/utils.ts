@@ -23,3 +23,5 @@ export function getCustomElementModules(customElementsManifest: any) {
 export function getCustomElementDeclrations(declarations: any) {
   return declarations.filter(d => d.customElement && d.tagName);
 }
+
+export const generatedMessage = `Generated with https://github.com/coryrylan/custom-element-types`;

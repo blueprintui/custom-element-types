@@ -1,10 +1,13 @@
-import { getElementImport, getPublicProperties, getCustomElementModules, getCustomElementDeclrations } from './utils.js';
+import { getElementImport, getPublicProperties, getCustomElementModules, getCustomElementDeclrations, generatedMessage } from './utils.js';
 
 export function generate(config: { customElementsManifest: any, entrypoint: string }) {
   const customElementModules = getCustomElementModules(config.customElementsManifest);
   
   const src = `
-// custom-element-types.module.ts
+/* 
+ * custom-element-types.module.ts
+ * ${generatedMessage}
+ */ 
 import { Directive, Input, Output, EventEmitter, ElementRef, NgModule } from '@angular/core';
 ${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => `${getElementImport(e, config.entrypoint, m.path)}`)).join('\n')}
 
@@ -40,7 +43,6 @@ export class CustomElementTypesModule { }`;
 }
 
 function getInputProperties(element: any) {
-  // @Input() @HostBinding('${prop.name}') ${prop.name}!: ${element.name}['${prop.name}']${prop.type?.text === 'boolean' ? ` | ''` : ''};`).join('\n  ')}
   return getPublicProperties(element).map(prop => `
   @Input() set ${prop.name}(value${prop.type?.text === 'boolean' ? `: boolean | ''` : ''}) { this.element.${prop.name} = ${prop.type?.text === 'boolean' ? '!!' : ''}value; }
   get ${prop.name}() { return this.element.${prop.name}; }`).join('\n');

@@ -107,7 +107,7 @@
               <input type="url" id="package-input" value="https://unpkg.com/@cds/core@6.0.0-next.3/package.json" />
             </cds-input>
 
-            <cds-radio-group layout="vertical-inline">
+            <cds-radio-group layout="vertical">
               <label>Output Format</label>
               <cds-radio>
                 <label>React</label>
@@ -125,25 +125,41 @@
                 <label>TypeScript</label>
                 <input type="radio" value="typescript" />
               </cds-radio>
+              <cds-radio>
+                <label>Blazor</label>
+                <input type="radio" value="blazor" />
+              </cds-radio>
             </cds-radio-group>
 
             <p cds-text="body" id="react-explainer">
-              Add a <code cds-text="code">types.d.ts</code> file to your project <a cds-text="link" href="https://stackblitz.com/edit/http-server-noh4jj" target="_blank" rel="noopener">(react example)</a>.
+              Add a <code cds-text="code">types.d.ts</code> file to your project <a cds-text="link" href="https://stackblitz.com/edit/http-server-noh4jj" target="_blank" rel="noopener">(React example)</a>.
             </p>
     
             <p cds-text="body" id="angular-explainer" hidden>
               Add <code cds-text="code">custom-element-types.module.ts</code> file to your project.
-              Import and add <code cds-text="code">CustomElementTypeModule</code> to your app module <a cds-text="link" href="https://stackblitz.com/edit/node-1tthxz" target="_blank" rel="noopener">(angular example)</a>.
+              Import and add <code cds-text="code">CustomElementTypeModule</code> to your app module <a cds-text="link" href="https://stackblitz.com/edit/node-1tthxz" target="_blank" rel="noopener">(Angular example)</a>.
             </p>
 
-            <p cds-text="body" id="preact-explainer">
-              Add a <code cds-text="code">types.d.ts</code> file to your project <a cds-text="link" href="https://stackblitz.com/edit/vitejs-vite-8qed1q" target="_blank" rel="noopener">(preact example)</a>.
+            <p cds-text="body" id="preact-explainer" hidden>
+              Add a <code cds-text="code">types.d.ts</code> file to your project <a cds-text="link" href="https://stackblitz.com/edit/vitejs-vite-8qed1q" target="_blank" rel="noopener">(Preact example)</a>.
             </p>
 
-            <p cds-text="body" id="typescript-explainer">
+            <p cds-text="body" id="typescript-explainer" hidden>
               Add a <code cds-text="code">types.d.ts</code> file to your project. If using a third party
               library it is likely this definition is already included.
             </p>
+            <ul cds-text="body" id="blazor-explainer" hidden>
+              <li>Add <code cds-text="code">custom-events.js</code> to <code cds-text="code">wwwroot</code>.</li>
+              <li>
+                Add script tag reference to <code cds-text="code">index.html</code><br />
+                <code cds-text="code">
+                  &lt;script type=&quot;module&quot; src=&quot;js/event-handlers.js&quot;&gt;&lt;/script&gt;
+                </code>
+              </li>
+              <li>
+                <a cds-text="link" href="https://github.com/coryrylan/clarity-blazor" target="_blank" rel="noopener">(Blazor example)</a>.
+              </li>
+            </ul>
           </div>
 
           <cds-textarea layout="vertical" hidden>
@@ -231,6 +247,7 @@
     import { generate as generatePreact } from 'https://cdn.skypack.dev/custom-element-types/preact.js';
     import { generate as generateAngular } from 'https://cdn.skypack.dev/custom-element-types/angular.js';
     import { generate as generateTypeScript } from 'https://cdn.skypack.dev/custom-element-types/typescript.js';
+    import { generate as generateBlazor } from 'https://cdn.skypack.dev/custom-element-types/blazor.js';
     
     const copyButton = document.querySelector('#copy-button');
     const packageInput = document.querySelector('#package-input');
@@ -241,20 +258,23 @@
     const preactExplainer = document.querySelector('#preact-explainer');
     const angularExplainer = document.querySelector('#angular-explainer');
     const typescriptExplainer = document.querySelector('#typescript-explainer');
+    const blazorExplainer = document.querySelector('#blazor-explainer');
     let result = '';
 
     const generator = {
       react: generateReact,
       preact: generatePreact,
       angular: generateAngular,
-      typescript: generateTypeScript
+      typescript: generateTypeScript,
+      blazor: generateBlazor
     };
 
     const explainers = {
       react: reactExplainer,
       preact: preactExplainer,
       angular: angularExplainer,
-      typescript: typescriptExplainer
+      typescript: typescriptExplainer,
+      blazor: blazorExplainer
     };
 
     copyButton.addEventListener('click', () => {
@@ -282,7 +302,7 @@
 
       if (customElementsManifest) {
         manifestTextarea.value = JSON.stringify(customElementsManifest, null, 2);
-        result = `// generated by https://github.com/coryrylan/custom-element-types\n${generator[framework]({ customElementsManifest, entrypoint: packageFile.name })[0].src}`;
+        result = `${generator[framework]({ customElementsManifest, entrypoint: packageFile.name }).map(file => file.src).join('\n\n')}`;
         output.innerHTML = Prism.highlight(result, Prism.languages.javascript, 'javascript');
         showExplainer(framework);
       }
