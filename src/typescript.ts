@@ -1,18 +1,17 @@
-import { getElementImport, getCustomElementModules, getCustomElementDeclrations, generatedMessage } from './utils.js';
+import { generatedMessage, createElementMetadata } from './utils.js';
 
 export function generate(config: { customElementsManifest: any, entrypoint: string }) {
-  const customElementModules = getCustomElementModules(config.customElementsManifest);
-  
+  const elements = createElementMetadata(config.customElementsManifest, config.entrypoint);
   const src = `
 /*
  * types.d.ts
  * ${generatedMessage}
  */
-${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => getElementImport(e, config.entrypoint, m.path))).join('\n')}
+${elements.map(e => e.import).join('\n')}
 
 declare global {
   interface HTMLElementTagNameMap {
-${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => `      '${e.tagName}': ${e.name}`)).join(';\n')}
+${elements.map(e => `      '${e.tagName}': ${e.name}`).join(';\n')}
   }
 }`.trim();
 

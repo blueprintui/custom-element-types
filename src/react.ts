@@ -1,8 +1,7 @@
-import { getElementImport, getCustomElementModules, getCustomElementDeclrations, generatedMessage } from './utils.js';
+import { generatedMessage, createElementMetadata } from './utils.js';
 
 export function generate(config: { customElementsManifest: any, entrypoint: string }) {
-  const customElementModules = getCustomElementModules(config.customElementsManifest);
-
+  const elements = createElementMetadata(config.customElementsManifest, config.entrypoint);
   const src = `
 /*
  * @experimental
@@ -11,7 +10,7 @@ export function generate(config: { customElementsManifest: any, entrypoint: stri
  * ${generatedMessage}
  */
 import { DOMAttributes } from 'react';
-${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => getElementImport(e, config.entrypoint, m.path))).join('\n')}
+${elements.map(e => e.import).join('\n')}
 
 type CustomEvents<K extends string> = { [key in K] : (event: CustomEvent) => void };
 type CustomElement<T, K extends string = ''> = Partial<T & DOMAttributes<T> & { children: any } & CustomEvents<\`on\${K}\`>>;
@@ -19,7 +18,7 @@ type CustomElement<T, K extends string = ''> = Partial<T & DOMAttributes<T> & { 
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => `      ['${e.tagName}']: CustomElement<${e.name}${e.events ? `,${e.events.map(event => `'${event.name}'`).join(' | ')}` : ''}>`)).join(';\n')}
+${elements.map(e => `      ['${e.tagName}']: CustomElement<${e.name}${e.events.length ? `,${e.events.map(event => `'${event.name}'`).join(' | ')}` : ''}>`).join(';\n')}
     }
   }
 }`.trim();

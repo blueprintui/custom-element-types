@@ -1,10 +1,9 @@
-import { getCustomElementModules, getCustomElementDeclrations, generatedMessage } from './utils.js';
+import { generatedMessage, createElementMetadata } from './utils.js';
 
 export function generate(config: { customElementsManifest: any, entrypoint: string }) {
-  const customElementModules = getCustomElementModules(config.customElementsManifest);
-  const components = customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations));
+  const elements = createElementMetadata(config.customElementsManifest, config.entrypoint);
 
-  const eventObject = components.reduce((prev, component) => {
+  const eventObject = elements.reduce((prev, component) => {
     component.events?.forEach(event => {
       prev[event.name] = prev[event.name] ? [...prev[event.name] ?? [], { ...event, tagName: component.tagName }] : [];
     });
@@ -17,7 +16,7 @@ export function generate(config: { customElementsManifest: any, entrypoint: stri
 /* 
  * @experimental
  *
- * CustomEvents.cs
+ * EventHandlers.cs
  * ${generatedMessage}
  */
 

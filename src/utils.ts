@@ -1,27 +1,79 @@
+import { Package } from 'custom-elements-manifest/schema';
 
-export function replaceTsExtentions(filePath: string) {
+export interface CustomElement {
+  name: string;
+  tagName: string;
+  path: string;
+  import: string;
+  description: string;
+  propeties: { name: string; type: string; }[];
+  events: { name: string; }[];
+  cssProperties: any[];
+  slots: any[]
+}
+
+export interface CustomElementMetadata {
+  entrypoint: string;
+  elements: CustomElement[];
+}
+
+export function createElementMetadata(customElementsManifest: Package, entrypoint): CustomElement[] {
+  const modules = getCustomElementModules(customElementsManifest);
+
+  const elements = modules.flatMap(m => {
+    return m.declarations.filter(d => d.customElement && d.tagName).map(d => {
+
+      const path = `${entrypoint ? `${entrypoint}/` : './'}${replaceTsExtentions(m.path)}`;
+      const element: CustomElement = {
+        name: d.name,
+        tagName: d.tagName,
+        description: d.description ?? '',
+        path,
+        import: `import { ${d.name} } from '${path}';`,
+        slots: d.slots ?? [],
+        cssProperties: d.cssProperties ?? [],
+        events: getCustomElementEvents(d) ?? [],
+        propeties: getPublicProperties(d)
+      };
+
+      return element;
+    });
+  });
+
+  return elements;
+}
+
+function replaceTsExtentions(filePath: string) {
   return filePath.endsWith('.ts') ? changeExt(filePath, 'js') : filePath;
 }
 
-export function changeExt(filePath: string, ext: string) {
+function changeExt(filePath: string, ext: string) {
   const pos = filePath.includes('.') ? filePath.lastIndexOf('.') : filePath.length;
   return `${filePath.substr(0, pos)}.${ext}`;
 }
 
-export function getElementImport(element: any, basePackage: string, modulePath: string) {
-  return `import { ${element.name} } from '${basePackage ? `${basePackage}/` : './'}${replaceTsExtentions(modulePath)}';`;
+function getPublicProperties(element: any) {
+  return (element.members?.filter(m =>
+    !m.readonly &&
+    !m.static &&
+    m.kind === 'field' &&
+    m.privacy === undefined &&
+    m.privacy !== 'private' &&
+    m.privacy !== 'protected'
+  ) ?? []).map(p => ({ name: p.name, type: p.type.text }));
 }
 
-export function getPublicProperties(element: any) {
-  return element.members.filter(m => m.privacy !== 'private' && m.privacy !== 'protected' && m.kind === 'field')
-}
-
-export function getCustomElementModules(customElementsManifest: any) {
+function getCustomElementModules(customElementsManifest: any) {
   return customElementsManifest.modules.filter(m => m.declarations?.length && m.declarations.find(d => d.customElement === true));
 }
 
-export function getCustomElementDeclrations(declarations: any) {
-  return declarations.filter(d => d.customElement && d.tagName);
+function getCustomElementEvents(element): any[] {
+  const memberEvents = element.members
+    .filter(event => event.privacy === undefined) // public
+    .filter(prop => prop.type && prop.type.text && prop.type.text.includes('EventEmitter'))
+    .map(event => ({ name: event.name }));
+  const events = element.events ?? [];
+  return Object.values(Object.values([...memberEvents, ...events].reduce((prev, next) => ({ ...prev, [next.name]: next }), {})));
 }
 
 export const generatedMessage = `Generated with https://github.com/coryrylan/custom-element-types`;

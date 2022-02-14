@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+- cleanup generated output formatting
+
+## 0.2.0
+- Blazor support
+
 ## 0.1.0
 - add Preact type support
 

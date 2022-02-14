@@ -1,25 +1,24 @@
-import { getElementImport, getPublicProperties, getCustomElementModules, getCustomElementDeclrations, generatedMessage } from './utils.js';
+import { generatedMessage, createElementMetadata, CustomElement } from './utils.js';
 
 export function generate(config: { customElementsManifest: any, entrypoint: string }) {
-  const customElementModules = getCustomElementModules(config.customElementsManifest);
-  
+  const elements = createElementMetadata(config.customElementsManifest, config.entrypoint);
+
   const src = `
 /* 
  * custom-element-types.module.ts
  * ${generatedMessage}
- */ 
+ */
 import { Directive, Input, Output, EventEmitter, ElementRef, NgModule } from '@angular/core';
-${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => `${getElementImport(e, config.entrypoint, m.path)}`)).join('\n')}
+${elements.map(e => e.import).join('\n')}
 
-${customElementModules.flatMap(m => getCustomElementDeclrations(m.declarations).map(e => getDirective(e)).join('\n')).join('\n')}
+${elements.map(e => getDirective(e)).join('\n')}
 
-${getModule(customElementModules)}`.trim();
-
+${getModule(elements)}`.trim();
   return [{ src, path: 'custom-element-types.module.ts' }];;
 }
 
 // https://github.com/angular/angular/issues/14761
-function getDirective(element: any) {
+function getDirective(element: CustomElement) {
   return `
 @Directive({ selector: '${element.tagName}' })
 export class ${element.name}Directive {
@@ -32,9 +31,9 @@ ${getOutputEvents(element)}
 }`;
 }
 
-function getModule(customElementModules: any) {
+function getModule(elements: CustomElement[]) {
   return `
-const directives = [${customElementModules.flatMap(m => m.declarations.filter(d => d.customElement && d.tagName).map(e => `${e.name}Directive,`)).join('\n    ')}];
+const directives = [${elements.map(e => `${e.name}Directive,`).join('\n    ')}];
 @NgModule({
   declarations: [...directives],
   exports: [...directives],
@@ -42,9 +41,9 @@ const directives = [${customElementModules.flatMap(m => m.declarations.filter(d 
 export class CustomElementTypesModule { }`;
 }
 
-function getInputProperties(element: any) {
-  return getPublicProperties(element).map(prop => `
-  @Input() set ${prop.name}(value${prop.type?.text === 'boolean' ? `: boolean | ''` : ''}) { this.element.${prop.name} = ${prop.type?.text === 'boolean' ? '!!' : ''}value; }
+function getInputProperties(element: CustomElement) {
+  return element.propeties.map(prop => `
+  @Input() set ${prop.name}(value${prop.type === 'boolean' ? `: boolean | ''` : ''}) { this.element.${prop.name} = ${prop.type === 'boolean' ? `value === '' ? true : ` : ''}value; }
   get ${prop.name}() { return this.element.${prop.name}; }`).join('\n');
 }
 
