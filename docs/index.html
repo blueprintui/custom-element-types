@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en-us" bp-theme="dark">
+<head>
+  <title>BlueprintUI - Custom Element Types</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/modern-normalize@1.1.0/modern-normalize.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/tokens/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes/dark.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/layout/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/typography/index.min.css">
+  <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <style>
+    main {
+      padding: 24px;
+      max-width: 1024px;
+      margin-inline: auto;
+    }
+
+    [bp-layout~=block] {
+      width: 100%;
+    }
+
+
+    :not(pre)>code[class*=language-], pre[class*=language-] {
+      background: var(--bp-layer-container-background-200);
+      margin: 0 auto;
+      width: 100%;
+      display: block;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+</head>
+<body bp-text="body">
+  <main bp-layout="block gap:md align:stretch">
+    <bp-alert-group status="warning">
+      <bp-alert>Warning, in beta. Subject to change.</bp-alert>
+    </bp-alert-group>
+    <div bp-layout="block gap:xl m-t:lg">
+      <div bp-layout="block gap:md">
+        <h1 bp-text="banner center">Custom Element Types</h1>
+        <h2 bp-text="section center">Framework Type Generator for Web Components</h2>
+
+        <div bp-layout="inline gap:xs inline:center">
+          <bp-button action="outline"><a href="https://github.com/blueprintui/custom-element-types">Github</a></bp-button>
+          <bp-button action="outline"><a href="https://github.com/blueprintui/custom-element-types">API Docs</a></bp-button>
+        </div>
+      </div>
+      <div bp-layout="block gap:md">
+        <div bp-layout="inline gap:md block:end">
+          <h2 bp-text="heading">Getting Started</h2>
+          <a href="https://badge.fury.io/js/custom-element-types" aria-label="npm package download custom-element-types">
+            <img src="https://badge.fury.io/js/custom-element-types.svg" />
+          </a>
+        </div>
+        <div bp-layout="grid gap:md cols:6@sm">
+          <div bp-layout="block gap:md">    
+            <p bp-text="content">
+              The Custom Element Types generator will use a <code bp-text="code">custom-elements.json</code> file to generate
+              a specific type definition files or shims for a given framework enabling type checking in
+              type aware templates such as TSX in React or Angular HTML templates.
+            </p>
+            <p bp-text="content">
+              Most Web Component libraries ship with a <code bp-text="code">custom-elements.json</code>. However if not provided, a manifest can be generated using the <a href="https://custom-elements-manifest.open-wc.org/" bp-text="link">Custom Elements Manifest Generator</a>.
+            </p>
+          </div>
+          <pre bp-text="code:block" class="language-bash"><code>npm install --save-dev custom-element-types
+
+custom-element-types --write --type react --entrypoint @blueprintui/components</code></pre>
+        </div>
+      </div>
+
+      <div bp-layout="block gap:md">
+        <div bp-layout="block gap:sm">
+          <bp-input layout="vertical" >
+            <label>package.json</label>
+            <input type="url" id="package-input" value="https://unpkg.com/@blueprintui/components/package.json" />
+          </bp-input>
+          <div bp-layout="grid gap:lg m-t:md">
+            <div bp-layout="col:4@sm block gap:md">
+              <bp-radio-group layout="vertical">
+                <label>Output Format</label>
+                <bp-radio>
+                  <label>React</label>
+                  <input type="radio" value="react" checked />
+                </bp-radio>
+                <bp-radio>
+                  <label>Angular</label>
+                  <input type="radio" value="angular" />
+                </bp-radio>
+                <bp-radio>
+                  <label>Preact</label>
+                  <input type="radio" value="preact" />
+                </bp-radio>
+                <bp-radio>
+                  <label>TypeScript</label>
+                  <input type="radio" value="typescript" />
+                </bp-radio>
+                <bp-radio>
+                  <label>Blazor</label>
+                  <input type="radio" value="blazor" />
+                </bp-radio>
+              </bp-radio-group>
+            </div>
+
+            <div bp-layout="col:8@sm">
+              <p bp-text="body" id="react-explainer">
+                Add a <code bp-text="code">types.d.ts</code> file to your project <a bp-text="link" href="https://stackblitz.com/edit/http-server-noh4jj" target="_blank" rel="noopener">(React example)</a>.
+              </p>
+
+              <p bp-text="body" id="angular-explainer" hidden>
+                Add <code bp-text="code">custom-element-types.module.ts</code> file to your project.
+                Import and add <code bp-text="code">CustomElementTypeModule</code> to your app module <a bp-text="link" href="https://stackblitz.com/edit/node-1tthxz" target="_blank" rel="noopener">(Angular example)</a>.
+              </p>
+
+              <p bp-text="body" id="preact-explainer" hidden>
+                Add a <code bp-text="code">types.d.ts</code> file to your project <a bp-text="link" href="https://stackblitz.com/edit/vitejs-vite-8qed1q" target="_blank" rel="noopener">(Preact example)</a>.
+              </p>
+
+              <p bp-text="body" id="typescript-explainer" hidden>
+                Add a <code bp-text="code">types.d.ts</code> file to your project. If using a third party library it is likely this definition is already included.
+              </p>
+
+              <ul bp-text="list" id="blazor-explainer" hidden>
+                <li>Add <code bp-text="code">event-handlers.js</code> to <code bp-text="code">wwwroot</code>.</li>
+                <li>
+                  Add script tag reference to <code bp-text="code">index.html</code><br />
+                  <code bp-text="code">
+                    &lt;script type=&quot;module&quot; src=&quot;js/event-handlers.js&quot;&gt;&lt;/script&gt;
+                  </code>
+                </li>
+                <li>
+                  Add <code bp-text="code">EventHandlers.cs</code> to the root of the project.
+                </li>
+                <li>
+                  <a bp-text="link" href="https://github.com/coryrylan/clarity-blazor" target="_blank" rel="noopener">(Blazor example)</a>.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <bp-textarea layout="vertical" hidden>
+            <label>Loaded Custom Elements Manifest JSON</label>
+            <textarea id="manifest-textarea" readonly></textarea>
+          </bp-textarea>
+        </div>
+        <div bp-layout="block gap:xs">
+          <bp-button-icon shape="copy" action="outline" size="sm" aria-label="Copy Types" bp-layout="inline:end" id="copy-button"></bp-button-icon>
+          <pre bp-text="code:block"><code id="output" class="language-javascript"></code></pre>
+        </div>
+      </div>
+    </div>
+  </main>
+  <bp-modal hidden>
+    <bp-modal-header>
+      <h3 bp-text="title">About</h3>
+    </bp-modal-header>
+    <bp-modal-content>
+      <section bp-layout="block gap:lg m-b:lg">
+        <p bp-text="body">
+          Built and maintained by <a href="https://twitter.com/coryrylan" bp-text="link" target="_blank" rel="noopener">Cory Rylan</a> 👋.
+        </p>
+      </section>
+    </bp-modal-content>
+  </bp-modal>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script type="module" id="generator">
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/button.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/alert.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/card.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/modal.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/textarea.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/input.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/radio.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons/include.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons/shapes/copy.js/+esm';
+    import { generate as generateReact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/react.js/+esm';
+    import { generate as generatePreact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/preact.js/+esm';
+    import { generate as generateAngular } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/angular.js/+esm';
+    import { generate as generateTypeScript } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/typescript.js/+esm';
+    import { generate as generateBlazor } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/blazor.js/+esm';
+
+    const copyButton = document.querySelector('#copy-button');
+    const packageInput = document.querySelector('#package-input');
+    const manifestTextarea = document.querySelector('#manifest-textarea');
+    const output = document.querySelector('#output');
+    const radios = Array.from(document.querySelectorAll('bp-radio input'));
+    const reactExplainer = document.querySelector('#react-explainer');
+    const preactExplainer = document.querySelector('#preact-explainer');
+    const angularExplainer = document.querySelector('#angular-explainer');
+    const typescriptExplainer = document.querySelector('#typescript-explainer');
+    const blazorExplainer = document.querySelector('#blazor-explainer');
+    let result = '';
+
+    const generator = {
+      react: generateReact,
+      preact: generatePreact,
+      angular: generateAngular,
+      typescript: generateTypeScript,
+      blazor: generateBlazor
+    };
+
+    const explainers = {
+      react: reactExplainer,
+      preact: preactExplainer,
+      angular: angularExplainer,
+      typescript: typescriptExplainer,
+      blazor: blazorExplainer
+    };
+
+    copyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(result);
+      copyButton.loadingState = 'success';
+      setTimeout(() => copyButton.loadingState = 'default', 1000);
+    });
+
+    radios.forEach(r => r.addEventListener('change', () => generate()));
+    packageInput.addEventListener('change', () => generate());
+
+    generate();
+
+    async function generate() {
+      const framework = radios.find(r => r.checked).value;
+      let packageFile;
+      let customElementsManifest;
+
+      try {
+        packageFile = await fetch(packageInput.value).then(res => res.json());
+        customElementsManifest = await fetch(packageInput.value.replace('package.json', packageFile.customElements.replace('./', ''))).then(res => res.json());
+      } catch {
+        console.error('invalid manifest');
+      }
+
+      if (customElementsManifest) {
+        manifestTextarea.value = JSON.stringify(customElementsManifest, null, 2);
+        result = `${generator[framework]({ customElementsManifest, entrypoint: packageFile.name }).map(file => file.src).join('\n\n')}`;
+        output.innerHTML = Prism.highlight(result, Prism.languages.javascript, 'javascript');
+        showExplainer(framework);
+      }
+    }
+
+    function showExplainer(framework) {
+      Object.keys(explainers).forEach(key => explainers[key].hidden = true);
+      explainers[framework].hidden = false;
+    }
+  </script>
+</body>
+</html>

@@ -23,7 +23,7 @@ export function createElementMetadata(customElementsManifest: Package, entrypoin
   const elements = modules.flatMap(m => {
     return m.declarations.filter(d => d.customElement && d.tagName).map(d => {
 
-      const path = `${entrypoint ? `${entrypoint}/` : './'}${replaceTsExtentions(m.path)}`;
+      const path = `${entrypoint ? `${entrypoint}` : './'}${replaceTsExtentions(m.path)}`;
       const element: CustomElement = {
         name: d.name,
         tagName: d.tagName,
@@ -60,7 +60,7 @@ function getPublicProperties(element: any) {
     m.privacy === undefined &&
     m.privacy !== 'private' &&
     m.privacy !== 'protected'
-  ) ?? []).map(p => ({ name: p.name, type: p.type.text }));
+  ) ?? []).map(p => ({ name: p.name, type: p.type?.text }));
 }
 
 function getCustomElementModules(customElementsManifest: any) {
@@ -70,10 +70,10 @@ function getCustomElementModules(customElementsManifest: any) {
 function getCustomElementEvents(element): any[] {
   const memberEvents = element.members
     .filter(event => event.privacy === undefined) // public
-    .filter(prop => prop.type && prop.type.text && prop.type.text.includes('EventEmitter'))
+    .filter(prop => prop.type && prop.type?.text && prop.type?.text.includes('EventEmitter'))
     .map(event => ({ name: event.name }));
   const events = element.events ?? [];
   return Object.values(Object.values([...memberEvents, ...events].reduce((prev, next) => ({ ...prev, [next.name]: next }), {})));
 }
 
-export const generatedMessage = `Generated with https://github.com/coryrylan/custom-element-types`;
+export const generatedMessage = `Generated with https://github.com/blueprintui/custom-element-types`;

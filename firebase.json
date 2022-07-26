@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "custom-element-types",
-    "public": "site",
+    "public": "docs",
     "ignore": [
       "firebase.json",
       "**/.*",

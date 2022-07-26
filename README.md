@@ -19,7 +19,7 @@ If you have a published Web Component library you can try out the [generator pla
 ## CLI
 
 ```bash
-custom-element-types --write --type react --entrypoint @cds/core
+custom-element-types --write --type react --entrypoint @blueprintui/components
 ```
 
 | Args              | Description                                                                  |
