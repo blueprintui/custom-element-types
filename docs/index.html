@@ -4,8 +4,8 @@
   <title>BlueprintUI - Custom Element Types</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://unpkg.com/modern-normalize@1.1.0/modern-normalize.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/tokens/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes/dark.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes/dark/index.min.css">
   <link rel="stylesheet" href="https://unpkg.com/@blueprintui/layout/index.min.css">
   <link rel="stylesheet" href="https://unpkg.com/@blueprintui/typography/index.min.css">
   <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
@@ -44,8 +44,8 @@
         <h2 bp-text="section center">Framework Type Generator for Web Components</h2>
 
         <div bp-layout="inline gap:xs inline:center">
-          <bp-button action="outline"><a href="https://github.com/blueprintui/custom-element-types">Github</a></bp-button>
-          <bp-button action="outline"><a href="https://github.com/blueprintui/custom-element-types">API Docs</a></bp-button>
+          <bp-button action="outline" status="accent"><a href="https://github.com/blueprintui/custom-element-types">Github</a></bp-button>
+          <bp-button action="outline" status="accent"><a href="https://github.com/blueprintui/custom-element-types">API Docs</a></bp-button>
         </div>
       </div>
       <div bp-layout="block gap:md">
@@ -74,35 +74,29 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
 
       <div bp-layout="block gap:md">
         <div bp-layout="block gap:sm">
-          <bp-input layout="vertical" >
+          <bp-field layout="vertical" >
             <label>package.json</label>
-            <input type="url" id="package-input" value="https://unpkg.com/@blueprintui/components/package.json" />
-          </bp-input>
+            <bp-input type="url" id="package-input" value="https://unpkg.com/@blueprintui/components/package.json"></bp-input>
+          </bp-field>
           <div bp-layout="grid gap:lg m-t:md">
             <div bp-layout="col:4@sm block gap:md">
-              <bp-radio-group layout="vertical">
+              <bp-fieldset layout="vertical">
                 <label>Output Format</label>
-                <bp-radio>
-                  <label>React</label>
-                  <input type="radio" value="react" checked />
-                </bp-radio>
-                <bp-radio>
-                  <label>Angular</label>
-                  <input type="radio" value="angular" />
-                </bp-radio>
-                <bp-radio>
-                  <label>Preact</label>
-                  <input type="radio" value="preact" />
-                </bp-radio>
-                <bp-radio>
-                  <label>TypeScript</label>
-                  <input type="radio" value="typescript" />
-                </bp-radio>
-                <bp-radio>
-                  <label>Blazor</label>
-                  <input type="radio" value="blazor" />
-                </bp-radio>
-              </bp-radio-group>
+                <label>React</label>
+                <bp-radio value="react" checked></bp-radio>
+                
+                <label>Angular</label>
+                <bp-radio value="angular"></bp-radio>
+                
+                <label>Preact</label>
+                <bp-radio value="preact"></bp-radio>
+
+                <label>TypeScript</label>
+                <bp-radio value="typescript"></bp-radio>
+
+                <label>Blazor</label>
+                <bp-radio value="blazor"></bp-radio>
+              </bp-fieldset>
             </div>
 
             <div bp-layout="col:8@sm">
@@ -140,42 +134,44 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
               </ul>
             </div>
           </div>
-          <bp-textarea layout="vertical" hidden>
+          <bp-field layout="vertical" hidden>
             <label>Loaded Custom Elements Manifest JSON</label>
-            <textarea id="manifest-textarea" readonly></textarea>
-          </bp-textarea>
+            <bp-textarea id="manifest-textarea" readonly></bp-textarea>
+          </bp-field>
         </div>
         <div bp-layout="block gap:xs">
+          <bp-tooltip anchor="copy-button" position="top" hidden id="copy-tooltip">copied</bp-tooltip>
           <bp-button-icon shape="copy" action="outline" size="sm" aria-label="Copy Types" bp-layout="inline:end" id="copy-button"></bp-button-icon>
           <pre bp-text="code:block"><code id="output" class="language-javascript"></code></pre>
         </div>
       </div>
     </div>
   </main>
-  <bp-modal hidden>
-    <bp-modal-header>
+  <bp-dialog hidden modal>
+    <bp-dialog-header>
       <h3 bp-text="title">About</h3>
-    </bp-modal-header>
-    <bp-modal-content>
+    </bp-dialog-header>
+    <bp-dialog-content>
       <section bp-layout="block gap:lg m-b:lg">
         <p bp-text="body">
           Built and maintained by <a href="https://twitter.com/coryrylan" bp-text="link" target="_blank" rel="noopener">Cory Rylan</a> 👋.
         </p>
       </section>
-    </bp-modal-content>
-  </bp-modal>
+    </bp-dialog-content>
+  </bp-dialog>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
   <script type="module" id="generator">
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/button.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/alert.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/card.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/modal.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/textarea.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/input.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components/include/radio.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons/include.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons/shapes/copy.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/button.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/alert.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/card.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/dialog.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/textarea.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/input.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/radio.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/tooltip.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@0.0.17/include.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@0.0.17/shapes/copy.js/+esm';
     import { generate as generateReact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/react.js/+esm';
     import { generate as generatePreact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/preact.js/+esm';
     import { generate as generateAngular } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/angular.js/+esm';
@@ -183,10 +179,11 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
     import { generate as generateBlazor } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/blazor.js/+esm';
 
     const copyButton = document.querySelector('#copy-button');
+    const copyTooltip = document.querySelector('#copy-tooltip');
     const packageInput = document.querySelector('#package-input');
     const manifestTextarea = document.querySelector('#manifest-textarea');
     const output = document.querySelector('#output');
-    const radios = Array.from(document.querySelectorAll('bp-radio input'));
+    const radios = Array.from(document.querySelectorAll('bp-radio'));
     const reactExplainer = document.querySelector('#react-explainer');
     const preactExplainer = document.querySelector('#preact-explainer');
     const angularExplainer = document.querySelector('#angular-explainer');
@@ -212,8 +209,8 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
 
     copyButton.addEventListener('click', () => {
       navigator.clipboard.writeText(result);
-      copyButton.loadingState = 'success';
-      setTimeout(() => copyButton.loadingState = 'default', 1000);
+      copyTooltip.hidden = false;
+      setTimeout(() => copyTooltip.hidden = true, 1500);
     });
 
     radios.forEach(r => r.addEventListener('change', () => generate()));
@@ -223,6 +220,7 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
 
     async function generate() {
       const framework = radios.find(r => r.checked).value;
+      console.log(radios.map(r => r.checked));
       let packageFile;
       let customElementsManifest;
 
