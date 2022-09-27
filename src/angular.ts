@@ -48,5 +48,5 @@ function getInputProperties(element: CustomElement) {
 }
 
 function getOutputEvents(element: any) {
-  return `${element.events?.length ? `\n${element.events?.map(event => `  @Output() ${event.name}: EventEmitter<CustomEvent> = new EventEmitter();`).join('\n\n')}` : ''}`;
+  return `${element.events?.length ? `\n${element.events?.map(event => `  @Output('${event.name}') ${event.name}Event: EventEmitter<CustomEvent> = new EventEmitter();`).join('\n\n')}` : ''}`;
 }
