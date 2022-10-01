@@ -57,6 +57,7 @@ function getPublicProperties(element: any) {
     !m.readonly &&
     !m.static &&
     m.kind === 'field' &&
+    m.attribute !== undefined &&
     m.privacy === undefined &&
     m.privacy !== 'private' &&
     m.privacy !== 'protected'
