@@ -4,10 +4,10 @@
   <title>BlueprintUI - Custom Element Types</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://unpkg.com/modern-normalize@1.1.0/modern-normalize.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes/dark/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/layout/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/typography/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes@0.0.8/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes@0.0.8/dark/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/layout@0.0.7/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/typography@0.0.12/index.min.css">
   <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
   <style>
     main {
@@ -19,7 +19,6 @@
     [bp-layout~=block] {
       width: 100%;
     }
-
 
     :not(pre)>code[class*=language-], pre[class*=language-] {
       background: var(--bp-layer-container-background-200);
@@ -162,21 +161,21 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
   <script type="module" id="generator">
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/button.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/alert.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/card.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/dialog.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/textarea.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/input.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/radio.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.19/include/tooltip.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/button.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/alert.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/card.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/dialog.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/textarea.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/input.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/radio.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/tooltip.js/+esm';
     import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@0.0.17/include.js/+esm';
     import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@0.0.17/shapes/copy.js/+esm';
-    import { generate as generateReact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/react.js/+esm';
-    import { generate as generatePreact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/preact.js/+esm';
-    import { generate as generateAngular } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/angular.js/+esm';
-    import { generate as generateTypeScript } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/typescript.js/+esm';
-    import { generate as generateBlazor } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.2/blazor.js/+esm';
+    import { generate as generateReact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/react.js/+esm';
+    import { generate as generatePreact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/preact.js/+esm';
+    import { generate as generateAngular } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/angular.js/+esm';
+    import { generate as generateTypeScript } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/typescript.js/+esm';
+    import { generate as generateBlazor } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/blazor.js/+esm';
 
     const copyButton = document.querySelector('#copy-button');
     const copyTooltip = document.querySelector('#copy-tooltip');
@@ -220,7 +219,6 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
 
     async function generate() {
       const framework = radios.find(r => r.checked).value;
-      console.log(radios.map(r => r.checked));
       let packageFile;
       let customElementsManifest;
 
