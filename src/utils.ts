@@ -1,4 +1,5 @@
 import { Package } from 'custom-elements-manifest/schema';
+import { isReservedEvent, isReservedProperty } from './reserved.js';
 
 export interface CustomElement {
   name: string;
@@ -60,7 +61,8 @@ function getPublicProperties(element: any) {
     m.attribute !== undefined &&
     m.privacy === undefined &&
     m.privacy !== 'private' &&
-    m.privacy !== 'protected'
+    m.privacy !== 'protected' &&
+    !isReservedProperty(m.name)
   ) ?? []).map(p => ({ name: p.name, type: p.type?.text }));
 }
 
@@ -71,7 +73,7 @@ function getCustomElementModules(customElementsManifest: any) {
 function getCustomElementEvents(element): any[] {
   const memberEvents = element.members
     .filter(event => event.privacy === undefined) // public
-    .filter(prop => prop.type && prop.type?.text && prop.type?.text.includes('EventEmitter'))
+    .filter(prop => prop.type && prop.type?.text && prop.type?.text.includes('EventEmitter') && !isReservedEvent(prop.name))
     .map(event => ({ name: event.name }));
   const events = element.events ?? [];
   return Object.values(Object.values([...memberEvents, ...events].reduce((prev, next) => ({ ...prev, [next.name]: next }), {})));

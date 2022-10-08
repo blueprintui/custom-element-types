@@ -1,6 +1,6 @@
 {
   "name": "custom-element-types",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A generator to create TypeScript type definitions for React applications using Custom Elements.",
   "main": "./index.js",
   "module": "./index.js",

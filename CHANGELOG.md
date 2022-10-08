@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.6
+- ignore native props and events
+
 ## 0.2.5
 - ignore non attribute supported properties to prevent overide of native props
 
