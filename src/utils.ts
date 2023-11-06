@@ -6,6 +6,7 @@ export interface CustomElement {
   tagName: string;
   path: string;
   import: string;
+  importType: string;
   description: string;
   propeties: { name: string; type: string; }[];
   events: { name: string; }[];
@@ -31,6 +32,7 @@ export function createElementMetadata(customElementsManifest: Package, entrypoin
         description: d.description ?? '',
         path,
         import: `import { ${d.name} } from '${path}';`,
+        importType: `import type { ${d.name} } from '${path}';`,
         slots: d.slots ?? [],
         cssProperties: d.cssProperties ?? [],
         events: getCustomElementEvents(d) ?? [],
@@ -62,6 +64,7 @@ function getPublicProperties(element: any) {
     m.privacy === undefined &&
     m.privacy !== 'private' &&
     m.privacy !== 'protected' &&
+    m.name !== 'accessor' &&
     !isReservedProperty(m.name)
   ) ?? []).map(p => ({ name: p.name, type: p.type?.text }));
 }

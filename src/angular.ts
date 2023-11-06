@@ -8,37 +8,25 @@ export function generate(config: { customElementsManifest: any, entrypoint: stri
  * custom-element-types.module.ts
  * ${generatedMessage}
  */
-import { Directive, Input, Output, EventEmitter, ElementRef, NgModule } from '@angular/core';
-${elements.map(e => e.import).join('\n')}
+import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+${elements.map(e => e.importType).join('\n')}
 
-${elements.map(e => getDirective(e)).join('\n')}
-
-${getModule(elements)}`.trim();
+${elements.map(e => getDirective(e)).join('\n')}`.trim();
   return [{ src, path: 'custom-element-types.module.ts' }];;
 }
 
 // https://github.com/angular/angular/issues/14761
 function getDirective(element: CustomElement) {
   return `
-@Directive({ selector: '${element.tagName}' })
+@Directive({ selector: '${element.tagName}', standalone: true })
 export class ${element.name}Directive {
-  protected element: ${element.name};
+  protected element: Partial<${element.name}>;
 ${getInputProperties(element)}
 ${getOutputEvents(element)}
   constructor(elementRef: ElementRef) {
     this.element = elementRef.nativeElement;
   }
 }`;
-}
-
-function getModule(elements: CustomElement[]) {
-  return `
-const directives = [${elements.map(e => `${e.name}Directive,`).join('\n    ')}];
-@NgModule({
-  declarations: [...directives],
-  exports: [...directives],
-})
-export class CustomElementTypesModule { }`;
 }
 
 function getInputProperties(element: CustomElement) {

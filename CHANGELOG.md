@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.7
+- update dependencies
+- update Angular output to standalone directives
+- fix temporary workaround for accessor based properties
+- fix cli binary entrypoint
+
 ## 0.2.6
 - ignore native props and events
 
