@@ -5,15 +5,16 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-
-      - name: install playwright
-        run: npx playwright install-deps
-
-      - name: install
-        run: npm ci
-
-      - name: build
-        run: npm run ci
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: './.nvmrc'
+          cache: 'pnpm'
+      - run: npm run setup
+      - run: pnpm run ci

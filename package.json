@@ -1,23 +1,42 @@
 {
-  "name": "custom-element-types",
-  "version": "0.2.8",
+  "name": "@blueprintui/custom-element-types",
+  "version": "0.0.2",
   "description": "A generator to create Framework integrations and types for Custom Elements using the Custom Elements Schema format.",
+  "packageManager": "pnpm@10.7.0",
+  "engines": {
+    "node": "22.14.0"
+  },
   "bin": {
-    "cet": "./index.js",
-    "custom-element-types": "./index.js"
+    "cet": "./dist/lib/index.js",
+    "custom-element-types": "./dist/lib/index.js"
   },
   "main": "./index.js",
   "module": "./index.js",
   "typings": "./index.d.ts",
   "type": "module",
   "files": [
-    "*"
+    "./dist",
+    "./package.json",
+    "./README.md",
+    "./LICENSE.md"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dist/lib/*",
+      "default": "./dist/lib/*"
+    },
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "default": "./dist/lib/index.js"
+    }
+  },
   "scripts": {
     "start": "cd ./docs && lite-server",
-    "ci": "npm run clean && npm run build && npm run build:react && npm run build:preact && npm run build:angular && npm run build:typescript && npm run build:blazor && npm run build:jsx",
+    "ci": "pnpm run clean && pnpm run build && pnpm run build:react && pnpm run build:preact && pnpm run build:angular && pnpm run build:typescript && pnpm run build:blazor && pnpm run build:jsx",
+    "setup": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && unset npm_config_prefix && . ~/.nvm/nvm.sh && nvm install && nvm use && npm install -g pnpm && pnpm run clean && pnpm i --frozen-lockfile && pnpm dlx playwright install chromium --with-deps chromium",
     "clean": "rm -rf dist",
-    "build": "tsc --project ./tsconfig.lib.json && cpy ./package.json dist/lib/ && cpy ./README.md dist/lib/",
+    "build": "tsc --project ./tsconfig.lib.json",
     "build:watch": "tsc --watch --project ./tsconfig.lib.json",
     "build:react": "node ./dist/lib/index.js --type react --custom-elements ./custom-elements.json --write ./dist/react --entrypoint @blueprintui/components",
     "build:preact": "node ./dist/lib/index.js --type preact --custom-elements ./custom-elements.json --write ./dist/preact --entrypoint @blueprintui/components",
@@ -51,11 +70,11 @@
     "@types/node": "22.14.0",
     "cpy-cli": "5.0.0",
     "custom-elements-manifest": "2.1.0",
-    "fs-extra": "11.3.0",
     "lite-server": "2.6.1",
     "typescript": "5.8.3"
   },
   "dependencies": {
+    "fs-extra": "11.3.0",
     "yargs": "17.7.2"
   }
 }
