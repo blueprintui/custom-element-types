@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      fs-extra:
+        specifier: 11.3.0
+        version: 11.3.0
       yargs:
         specifier: 17.7.2
         version: 17.7.2
@@ -24,9 +27,6 @@ importers:
       custom-elements-manifest:
         specifier: 2.1.0
         version: 2.1.0
-      fs-extra:
-        specifier: 11.3.0
-        version: 11.3.0
       lite-server:
         specifier: 2.6.1
         version: 2.6.1
