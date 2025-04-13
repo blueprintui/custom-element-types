@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.8
+- update dependencies
+- update React to support React 19
+
 ## 0.2.7
 - update dependencies
 - update Angular output to standalone directives

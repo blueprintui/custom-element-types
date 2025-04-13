@@ -24,7 +24,7 @@ custom-element-types --write --type react --entrypoint @blueprintui/components
 
 | Args              | Description                                                                  |
 | ----------------- | ---------------------------------------------------------------------------- |
-| type              | `react`, `preact`, `angular`, `typescript`, `blazor`                         |
+| type              | `jsx`, `react`, `preact`, `angular`, `typescript`, `blazor`                         |
 | custom-elements   | optional custom path to `custom-elements.json` file                           |
 | write             | write to file, optionally provide a output directory path                     |
 | entrypoint        | package name for base entrypoint import path, else defaults to relative path |

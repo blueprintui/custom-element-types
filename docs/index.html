@@ -3,12 +3,11 @@
 <head>
   <title>BlueprintUI - Custom Element Types</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://unpkg.com/modern-normalize@1.1.0/modern-normalize.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes@0.0.8/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes@0.0.8/dark/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/layout@0.0.7/index.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/typography@0.0.12/index.min.css">
-  <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes@2.1.11/dist/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/themes@2.1.11/dist/dark/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/layout@2.1.7/dist/index.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@blueprintui/typography@2.2.0/dist/index.min.css">
+  <link href="https://unpkg.com/prismjs@1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
   <style>
     main {
       padding: 24px;
@@ -21,7 +20,7 @@
     }
 
     :not(pre)>code[class*=language-], pre[class*=language-] {
-      background: var(--bp-layer-container-background-200);
+      background: var(--bp-layer-background-200);
       margin: 0 auto;
       width: 100%;
       display: block;
@@ -43,8 +42,8 @@
         <h2 bp-text="section center">Framework Type Generator for Web Components</h2>
 
         <div bp-layout="inline gap:xs inline:center">
-          <bp-button action="outline" status="accent"><a href="https://github.com/blueprintui/custom-element-types">Github</a></bp-button>
-          <bp-button action="outline" status="accent"><a href="https://github.com/blueprintui/custom-element-types">API Docs</a></bp-button>
+          <bp-button action="secondary" status="accent"><a href="https://github.com/blueprintui/custom-element-types">Github</a></bp-button>
+          <bp-button action="secondary" status="accent"><a href="https://github.com/blueprintui/custom-element-types">API Docs</a></bp-button>
         </div>
       </div>
       <div bp-layout="block gap:md">
@@ -140,7 +139,7 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
         </div>
         <div bp-layout="block gap:xs">
           <bp-tooltip anchor="copy-button" position="top" hidden id="copy-tooltip">copied</bp-tooltip>
-          <bp-button-icon shape="copy" action="outline" size="sm" aria-label="Copy Types" bp-layout="inline:end" id="copy-button"></bp-button-icon>
+          <bp-button-icon shape="copy" action="secondary" size="sm" aria-label="Copy Types" bp-layout="inline:end" id="copy-button"></bp-button-icon>
           <pre bp-text="code:block"><code id="output" class="language-javascript"></code></pre>
         </div>
       </div>
@@ -153,7 +152,7 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
     <bp-dialog-content>
       <section bp-layout="block gap:lg m-b:lg">
         <p bp-text="body">
-          Built and maintained by <a href="https://twitter.com/coryrylan" bp-text="link" target="_blank" rel="noopener">Cory Rylan</a> 👋.
+          Built and maintained by <a href="https://bsky.app/profile/coryrylan.com" bp-text="link" target="_blank" rel="noopener">Cory Rylan</a> 👋.
         </p>
       </section>
     </bp-dialog-content>
@@ -161,16 +160,16 @@ custom-element-types --write --type react --entrypoint @blueprintui/components</
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js"></script>
   <script type="module" id="generator">
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/button.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/alert.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/card.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/dialog.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/textarea.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/input.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/radio.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@0.0.22/include/tooltip.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@0.0.17/include.js/+esm';
-    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@0.0.17/shapes/copy.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/button.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/alert.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/card.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/dialog.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/textarea.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/input.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/radio.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/components@2.4.0/include/tooltip.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@2.1.6/include.js/+esm';
+    import 'https://cdn.jsdelivr.net/npm/@blueprintui/icons@2.1.6/shapes/copy.js/+esm';
     import { generate as generateReact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/react.js/+esm';
     import { generate as generatePreact } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/preact.js/+esm';
     import { generate as generateAngular } from 'https://cdn.jsdelivr.net/npm/custom-element-types@0.2.5/angular.js/+esm';

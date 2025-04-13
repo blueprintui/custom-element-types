@@ -1,6 +1,6 @@
 {
   "name": "custom-element-types",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "A generator to create Framework integrations and types for Custom Elements using the Custom Elements Schema format.",
   "bin": {
     "cet": "./index.js",
@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "start": "cd ./docs && lite-server",
-    "ci": "npm run clean && npm run build && npm run build:react && npm run build:preact && npm run build:angular && npm run build:typescript && npm run build:blazor",
+    "ci": "npm run clean && npm run build && npm run build:react && npm run build:preact && npm run build:angular && npm run build:typescript && npm run build:blazor && npm run build:jsx",
     "clean": "rm -rf dist",
     "build": "tsc --project ./tsconfig.lib.json && cpy ./package.json dist/lib/ && cpy ./README.md dist/lib/",
     "build:watch": "tsc --watch --project ./tsconfig.lib.json",
@@ -24,6 +24,7 @@
     "build:angular": "node ./dist/lib/index.js --type angular --custom-elements ./custom-elements.json --write ./dist/angular --entrypoint @blueprintui/components",
     "build:typescript": "node ./dist/lib/index.js --type typescript --custom-elements ./custom-elements.json --write ./dist/typescript --entrypoint @blueprintui/components",
     "build:blazor": "node ./dist/lib/index.js --type blazor --custom-elements ./custom-elements.json --write ./dist/blazor --entrypoint @blueprintui/components",
+    "build:jsx": "node ./dist/lib/index.js --type jsx --custom-elements ./custom-elements.json --write ./dist/jsx --entrypoint @blueprintui/components",
     "deploy": "firebase deploy --only hosting:custom-element-types"
   },
   "repository": {
@@ -46,12 +47,13 @@
   },
   "homepage": "https://github.com/coryrylan/custom-element-types#readme",
   "devDependencies": {
-    "@types/fs-extra": "11.0.3",
-    "@types/node": "20.8.10",
+    "@types/fs-extra": "11.0.4",
+    "@types/node": "22.14.0",
     "cpy-cli": "5.0.0",
-    "custom-elements-manifest": "2.0.0",
-    "fs-extra": "11.1.1",
-    "typescript": "5.2.2"
+    "custom-elements-manifest": "2.1.0",
+    "fs-extra": "11.3.0",
+    "lite-server": "2.6.1",
+    "typescript": "5.8.3"
   },
   "dependencies": {
     "yargs": "17.7.2"

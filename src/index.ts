@@ -10,6 +10,7 @@ import { generate as generateReact } from './react.js';
 import { generate as generatePreact } from './preact.js';
 import { generate as generateTypeScript } from './typescript.js';
 import { generate as generateBlazor } from './blazor.js';
+import { generate as generateJSX } from './jsx.js';
 
 const { ensureFileSync, writeFileSync, readJsonSync } = fs;
 const argv = yargs(hideBin(process.argv)).argv;
@@ -21,7 +22,8 @@ const generator = {
   react: generateReact,
   preact: generatePreact,
   typescript: generateTypeScript,
-  blazor: generateBlazor
+  blazor: generateBlazor,
+  jsx: generateJSX
 }
 
 export function run() {

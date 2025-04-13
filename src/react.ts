@@ -15,7 +15,7 @@ ${elements.map(e => e.import).join('\n')}
 type CustomEvents<K extends string> = { [key in K] : (event: CustomEvent) => void };
 type CustomElement<T, K extends string = ''> = Partial<T & DOMAttributes<T> & { children: any } & CustomEvents<\`on\${K}\`>>;
 
-declare global {
+declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
 ${elements.map(e => `      ['${e.tagName}']: CustomElement<${e.name}${e.events.length ? `,${e.events.map(event => `'${event.name}'`).join(' | ')}` : ''}>`).join(';\n')}
