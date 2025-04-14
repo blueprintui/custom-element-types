@@ -1,5 +1,5 @@
 {
-  "name": "@blueprintui/custom-element-types",
+  "name": "custom-element-types",
   "version": "0.0.2",
   "description": "A generator to create Framework integrations and types for Custom Elements using the Custom Elements Schema format.",
   "packageManager": "pnpm@10.7.0",
