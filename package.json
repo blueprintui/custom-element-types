@@ -33,7 +33,8 @@
   },
   "scripts": {
     "start": "cd ./docs && lite-server",
-    "ci": "pnpm run clean && pnpm run build && pnpm run build:react && pnpm run build:preact && pnpm run build:angular && pnpm run build:typescript && pnpm run build:blazor && pnpm run build:jsx",
+    "test": "tsx --test ./test/**/*.test.ts",
+    "ci": "pnpm run clean && pnpm run build && pnpm run test && pnpm run build:react && pnpm run build:preact && pnpm run build:angular && pnpm run build:typescript && pnpm run build:blazor && pnpm run build:jsx",
     "setup": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && unset npm_config_prefix && . ~/.nvm/nvm.sh && nvm install && nvm use && npm install -g pnpm && pnpm run clean && pnpm i --frozen-lockfile && pnpm dlx playwright install chromium --with-deps chromium",
     "clean": "rm -rf dist",
     "build": "tsc --project ./tsconfig.lib.json",
@@ -71,6 +72,7 @@
     "cpy-cli": "5.0.0",
     "custom-elements-manifest": "2.1.0",
     "lite-server": "2.6.1",
+    "tsx": "4.19.2",
     "typescript": "5.8.3"
   },
   "dependencies": {

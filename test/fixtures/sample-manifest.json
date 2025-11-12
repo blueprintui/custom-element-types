@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "/button/element.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A custom button element",
+          "name": "MyButton",
+          "cssProperties": [
+            {
+              "name": "--color"
+            }
+          ],
+          "slots": [
+            {
+              "description": "slot for button content",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "disables the button",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "description": "button label",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "readonly property should be filtered",
+              "attribute": "readonly",
+              "readonly": true,
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "privateField",
+              "type": {
+                "text": "string"
+              },
+              "description": "private field should be filtered",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "staticField",
+              "type": {
+                "text": "string"
+              },
+              "description": "static field should be filtered",
+              "static": true,
+              "attribute": "static-field"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML",
+              "type": {
+                "text": "string"
+              },
+              "description": "reserved property should be filtered",
+              "attribute": "innerHTML"
+            }
+          ],
+          "events": [
+            {
+              "description": "custom click event",
+              "name": "customClick"
+            },
+            {
+              "description": "reserved event should be filtered",
+              "name": "click"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "my-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MyButton",
+          "declaration": {
+            "name": "MyButton",
+            "module": "/button/element.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "/input/element.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A custom input element",
+          "name": "MyInput",
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "description": "input value",
+              "attribute": "value"
+            }
+          ],
+          "events": [],
+          "tagName": "my-input",
+          "customElement": true
+        }
+      ],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "/not-custom-element/element.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Not a custom element",
+          "name": "NotCustomElement",
+          "members": []
+        }
+      ],
+      "exports": []
+    }
+  ]
+}
