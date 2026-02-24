@@ -81,14 +81,3 @@ Object.keys(customEvents).map(event => {
 
   return [{ src: srcCS, path: 'CustomEvents.cs' }, { src: srcJS, path: 'custom-events.js' }];
 }
-
-
-// export function afterStarted() {
-//   ${Object.keys(eventObject).map(name => ({ name, descriptions: eventObject[name] })).map(e => `
-// ${e.descriptions.map(d => `  // ${d.tagName}: ${d.description}`).join('\n')}
-//   Blazor.registerCustomEventType('${e.name}', {
-//     browserEventName: '${e.name}',
-//     createEventArgs: event => {
-//       return { detail: event.detail };
-//     }
-//   });`)}`};

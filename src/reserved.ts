@@ -257,9 +257,8 @@ const reservedPublicProperties = new Set(
   [...ariaProperties, ...htmlElementProperties, ...elementProperties].map(p => p.toLowerCase())
 );
 
-export function isReservedProperty(memberName) {
-  memberName = memberName.toLowerCase();
-  return reservedPublicProperties.has(memberName);
+export function isReservedProperty(memberName: string) {
+  return reservedPublicProperties.has(memberName.toLowerCase());
 }
 
 const htmlElementEvents = [
@@ -342,7 +341,6 @@ const htmlElementEvents = [
 
 const reservedPublicEvents = new Set([...htmlElementEvents].map(p => p.toLowerCase()));
 
-export function isReservedEvent(memberName) {
-  memberName = memberName.toLowerCase();
-  return reservedPublicEvents.has(memberName);
+export function isReservedEvent(memberName: string) {
+  return reservedPublicEvents.has(memberName.toLowerCase());
 }

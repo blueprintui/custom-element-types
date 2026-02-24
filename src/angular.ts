@@ -12,7 +12,7 @@ import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/cor
 ${elements.map(e => e.importType).join('\n')}
 
 ${elements.map(e => getDirective(e)).join('\n')}`.trim();
-  return [{ src, path: 'custom-element-types.module.ts' }];;
+  return [{ src, path: 'custom-element-types.module.ts' }];
 }
 
 // https://github.com/angular/angular/issues/14761
@@ -30,7 +30,7 @@ ${getOutputEvents(element)}
 }
 
 function getInputProperties(element: CustomElement) {
-  return element.propeties.map(prop => `
+  return element.properties.map(prop => `
   @Input() set ${prop.name}(value${prop.type === 'boolean' ? `: boolean | ''` : ''}) { this.element.${prop.name} = ${prop.type === 'boolean' ? `value === '' ? true : ` : ''}value; }
   get ${prop.name}() { return this.element.${prop.name}; }`).join('\n');
 }
