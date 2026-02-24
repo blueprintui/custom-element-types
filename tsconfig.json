@@ -24,8 +24,8 @@
     "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
-      "web-test-runner-performance": ["./dist/lib"],
-      "web-test-runner-performance/*": ["./dist/lib/*"]
+      "custom-element-types": ["./dist/lib"],
+      "custom-element-types/*": ["./dist/lib/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],

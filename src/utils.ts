@@ -8,7 +8,7 @@ export interface CustomElement {
   import: string;
   importType: string;
   description: string;
-  propeties: { name: string; type: string; }[];
+  properties: { name: string; type: string; }[];
   events: { name: string; }[];
   cssProperties: any[];
   slots: any[]
@@ -19,7 +19,7 @@ export interface CustomElementMetadata {
   elements: CustomElement[];
 }
 
-export function createElementMetadata(customElementsManifest: Package, entrypoint): CustomElement[] {
+export function createElementMetadata(customElementsManifest: Package, entrypoint: string): CustomElement[] {
   const modules = getCustomElementModules(customElementsManifest);
 
   const elements = modules.flatMap(m => {
@@ -36,7 +36,7 @@ export function createElementMetadata(customElementsManifest: Package, entrypoin
         slots: d.slots ?? [],
         cssProperties: d.cssProperties ?? [],
         events: getCustomElementEvents(d) ?? [],
-        propeties: getPublicProperties(d)
+        properties: getPublicProperties(d)
       };
 
       return element;
@@ -52,7 +52,7 @@ function replaceTsExtentions(filePath: string) {
 
 function changeExt(filePath: string, ext: string) {
   const pos = filePath.includes('.') ? filePath.lastIndexOf('.') : filePath.length;
-  return `${filePath.substr(0, pos)}.${ext}`;
+  return `${filePath.substring(0, pos)}.${ext}`;
 }
 
 function getPublicProperties(element: any) {
@@ -62,8 +62,6 @@ function getPublicProperties(element: any) {
     m.kind === 'field' &&
     m.attribute !== undefined &&
     m.privacy === undefined &&
-    m.privacy !== 'private' &&
-    m.privacy !== 'protected' &&
     m.name !== 'accessor' &&
     !isReservedProperty(m.name)
   ) ?? []).map(p => ({ name: p.name, type: p.type?.text }));
@@ -73,7 +71,7 @@ function getCustomElementModules(customElementsManifest: any) {
   return customElementsManifest.modules.filter(m => m.declarations?.length && m.declarations.find(d => d.customElement === true));
 }
 
-function getCustomElementEvents(element): any[] {
+function getCustomElementEvents(element: any): any[] {
   const memberEvents = element.members
     .filter(event => event.privacy === undefined) // public
     .filter(prop => prop.type && prop.type?.text && prop.type?.text.includes('EventEmitter') && !isReservedEvent(prop.name))

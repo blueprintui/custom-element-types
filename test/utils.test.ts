@@ -69,7 +69,7 @@ describe('utils.ts', () => {
       const elements = createElementMetadata(manifest, undefined);
       const button = elements[0];
 
-      const readonlyProp = button.propeties.find(p => p.name === 'readonly');
+      const readonlyProp = button.properties.find(p => p.name === 'readonly');
       assert.strictEqual(readonlyProp, undefined, 'Should not include readonly properties');
     });
 
@@ -77,7 +77,7 @@ describe('utils.ts', () => {
       const elements = createElementMetadata(manifest, undefined);
       const button = elements[0];
 
-      const privateProp = button.propeties.find(p => p.name === 'privateField');
+      const privateProp = button.properties.find(p => p.name === 'privateField');
       assert.strictEqual(privateProp, undefined, 'Should not include private properties');
     });
 
@@ -85,7 +85,7 @@ describe('utils.ts', () => {
       const elements = createElementMetadata(manifest, undefined);
       const button = elements[0];
 
-      const staticProp = button.propeties.find(p => p.name === 'staticField');
+      const staticProp = button.properties.find(p => p.name === 'staticField');
       assert.strictEqual(staticProp, undefined, 'Should not include static properties');
     });
 
@@ -93,7 +93,7 @@ describe('utils.ts', () => {
       const elements = createElementMetadata(manifest, undefined);
       const button = elements[0];
 
-      const reservedProp = button.propeties.find(p => p.name === 'innerHTML');
+      const reservedProp = button.properties.find(p => p.name === 'innerHTML');
       assert.strictEqual(reservedProp, undefined, 'Should not include reserved properties');
     });
 
@@ -101,13 +101,13 @@ describe('utils.ts', () => {
       const elements = createElementMetadata(manifest, undefined);
       const button = elements[0];
 
-      assert.strictEqual(button.propeties.length, 2, 'Should have 2 valid properties');
+      assert.strictEqual(button.properties.length, 2, 'Should have 2 valid properties');
 
-      const disabled = button.propeties.find(p => p.name === 'disabled');
+      const disabled = button.properties.find(p => p.name === 'disabled');
       assert.ok(disabled, 'Should include disabled property');
       assert.strictEqual(disabled.type, 'boolean');
 
-      const label = button.propeties.find(p => p.name === 'label');
+      const label = button.properties.find(p => p.name === 'label');
       assert.ok(label, 'Should include label property');
       assert.strictEqual(label.type, 'string');
     });

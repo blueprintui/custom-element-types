@@ -15,5 +15,5 @@ ${elements.map(e => `      '${e.tagName}': ${e.name}`).join(';\n')}
   }
 }`.trim();
 
-  return [{ src, path: 'types.d.ts' }];;
+  return [{ src, path: 'types.d.ts' }];
 }
